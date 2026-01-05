@@ -15,6 +15,8 @@ ui <- fluidPage(
     tags$div(
       style = "text-align: center;",
       
+      br(), br(),
+      
       tags$img(
         src = "logo_fuedei.png",
         height = "40px"
@@ -267,8 +269,9 @@ server <- function(input, output, session){
       select(
         ID_interno,   # ← lo usamos solo internamente
         ID,
-        Orden, Familia, Subfamilia, Especie,
-        Especie_Bot2,
+        Orden, Familia, Subfamilia, 
+        Especie_Insecto = Especie,
+        Especies_Planta = Especie_Bot2,
         Referencia_corta
       ) %>%
       mutate(
@@ -299,7 +302,15 @@ server <- function(input, output, session){
       });
     "
       )
-    )
+    )%>%
+      formatStyle(
+        "Especie_Insecto",
+        fontStyle = "italic"
+      ) %>%
+      formatStyle(
+        "Especies_Planta",
+        fontStyle = "italic"
+      )
     
     
   })
@@ -317,8 +328,8 @@ server <- function(input, output, session){
         HTML(paste0(
           "<b>Familia:</b> ", safe(fila$Familia), "<br>",
           "<b>Subfamilia:</b> ", safe(fila$Subfamilia), "<br>",
-          "<b>Especie:</b> ", safe(fila$Especie), "<br>",
-          "<b>Planta asociada:</b> ", safe(fila$Especie_Bot2), "<br><br>",
+          "<b>Especie:</b><i> ", safe(fila$Especie), "</i><br>",
+          "<b>Planta asociada:</b><i> ", safe(fila$Especie_Bot2), "</i><br><br>",
           "<b>Referencia:</b><br>", safe(fila$Referencia_corta)
         )),
         
