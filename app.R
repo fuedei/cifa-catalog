@@ -282,7 +282,6 @@ server <- function(input, output, session){
       )
     
     
-    
     datatable(
       df,
       escape = FALSE,
